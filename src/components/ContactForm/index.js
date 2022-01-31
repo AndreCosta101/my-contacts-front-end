@@ -1,3 +1,5 @@
+/* eslint-disable react/jsx-no-bind */
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Form, ButtonContainer } from './styles';
 
@@ -7,25 +9,53 @@ import Select from '../Select';
 import Button from '../Button';
 
 export default function ContactForm({ buttonLabel }) {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [category, setCategory] = useState('');
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    console.log({
+      name, email, phone, category,
+    });
+  }
+
   return (
-    <Form>
-      <FormGroup>
-        <Input type="text" placeholder="Nome" />
-      </FormGroup>
 
-      <FormGroup
-        error="O formato do email é inválido."
-      >
-        <Input type="text" placeholder="Email" error />
-      </FormGroup>
-
+    <Form onSubmit={handleSubmit}>
       <FormGroup>
-        <Input type="text" placeholder="Telefone" />
+        <Input
+          placeholder="nome"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
       </FormGroup>
 
       <FormGroup>
-        <Select>
+        <Input
+          placeholder="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Input
+          placeholder="telefone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+        />
+      </FormGroup>
+
+      <FormGroup>
+        <Select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+        >
+          <option value="">Categoria</option>
           <option value="instagram">Instagram</option>
+          <option value="discord">Discord</option>
         </Select>
       </FormGroup>
 
