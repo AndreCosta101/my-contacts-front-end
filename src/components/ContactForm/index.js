@@ -33,12 +33,10 @@ export default function ContactForm({ buttonLabel }) {
   }
 
   function handleEmailChange(event) {
-    console.log(errors);
     setEmail(event.target.value);
 
     if (event.target.value && !isEmailValid(event.target.value)) {
       const errorAlreadyExists = errors.find((error) => error.field === 'email');
-      console.log(errorAlreadyExists);
       if (errorAlreadyExists) {
         return;
       }
@@ -54,6 +52,12 @@ export default function ContactForm({ buttonLabel }) {
     }
   }
 
+  function getErrorMessageByFieldName(fieldName) {
+    return errors.find((error) => error.field === fieldName)?.message;
+  }
+
+  console.log(getErrorMessageByFieldName('name'));
+
   function handleSubmit(event) {
     event.preventDefault();
     console.log({
@@ -64,16 +68,18 @@ export default function ContactForm({ buttonLabel }) {
   return (
 
     <Form onSubmit={handleSubmit}>
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('name')}>
         <Input
+          error={getErrorMessageByFieldName('name')}
           placeholder="nome"
           value={name}
           onChange={handleNameChange}
         />
       </FormGroup>
 
-      <FormGroup>
+      <FormGroup error={getErrorMessageByFieldName('email')}>
         <Input
+          error={getErrorMessageByFieldName('email')}
           placeholder="email"
           value={email}
           onChange={handleEmailChange}
