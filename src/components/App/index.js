@@ -15,6 +15,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyle />
+
         <Container>
           <Header />
           <Routes />

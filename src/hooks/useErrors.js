@@ -5,7 +5,6 @@ export default function useErrors() {
 
   function setError({ field, message }) {
     const errorAlreadyExists = errors.find((error) => error.field === field);
-    console.log(errorAlreadyExists);
     if (errorAlreadyExists) {
       return;
     }
